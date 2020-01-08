@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 30px;
+  align-items: center;
+  transition: all 0.3s ease-in;
+  border-bottom: 2px solid rgba(255,255,255,0.4);
+  &.header-active {
+    transform: translateX(352px);
+  }
+
+  .wrapper-btn {
+    background: transparent;
+    padding: 5px;
+    max-width: fit-content;
+    opacity: 1;
+    transition: all 0.3s ease-in;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    &:hover {
+      cursor: pointer;
+      color: #fff;
+    }
+    &.active {
+      opacity: 0;
+    }
+  }
+
+  .account {
+    color: #fff;
+    .logOut {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding-left: 20px;
+    }
+    .user-name {
+      margin-right: 20px;
+    }
+  }
+}

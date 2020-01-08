@@ -1,0 +1,19 @@
+.wrapper-createTask {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  position: relative;
+  h2 {
+    color: #fff;
+    width: 100%;
+    text-align: center;
+  }
+  .form-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+}

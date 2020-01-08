@@ -1,0 +1,47 @@
+.input-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 100%;
+  .input {
+    background-color: transparent;
+    border: 2px solid rgba(255,255,255,0.4);
+    height: 30px;
+    border-radius: 4px;
+    font-size: 20px;
+    padding-left: 10px;
+    color: #fff;
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px #fff;
+      border-color: #fff;
+    }
+    &:disabled {
+      background-color: rgba(255,255,255,0.4);
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .input-label {
+    color: #fff;
+  }
+
+  .validate-text {
+    font-size: 14px;
+    color: red;
+    font-weight: 500;
+    display: none;
+  }
+
+  &.invalid {
+    .validate-text {
+      color: red;
+      display: block;
+    }
+    .input-label {
+      color: red;
+    }
+  }
+}

@@ -10,7 +10,7 @@ export function authMethod(email, password, isLogin) {
     if (isLogin) {
       loginUser(userData).then(data => {
         dispatch(authLoaderUpdate(false));
-        const expirationDate = new Date( new Date().getTime() + data.stsTokenManager.expirationTime * 1000 );
+        const expirationDate = new Date( new Date().getTime() + 3600 * 1000 );
 
         localStorage.setItem('token', data.stsTokenManager.accessToken);
         localStorage.setItem('localId', data.uid);
@@ -18,7 +18,7 @@ export function authMethod(email, password, isLogin) {
         localStorage.setItem('displayName', data.displayName);
 
         dispatch(authSuccess(data.stsTokenManager.accessToken, data.displayName, data.uid));
-        dispatch(autoLogout(data.stsTokenManager.expirationTime));
+        dispatch(autoLogout(3600));
 
       }).catch((e)=> {
         dispatch(authErrorUpdate(e));

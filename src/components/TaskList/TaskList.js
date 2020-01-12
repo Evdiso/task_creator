@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react'
-import {Link} from 'react-router-dom'
-import Table from '../TaskList/Table/Table'
-import Loader from "../UI/Loader/Loader"
-import {connect} from 'react-redux'
-import {getTasksMethod, deleteTaskMethod} from '../../store/actions/taskList'
+import React, {useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import Table from '../TaskList/Table/Table';
+import Loader from "../UI/Loader/Loader";
+import moment from 'moment';
+import {connect} from 'react-redux';
+import {getTasksMethod, deleteTaskMethod, sortTask, updateStatusSort} from '../../store/actions/taskList';
 
 const TaskList = props => {
 
@@ -12,8 +13,38 @@ const TaskList = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const sortHandle = () => {
+  const sortableTasks = (sort, index) => {
+    let copyArray = [...props.tasksArray];
+    let copyTableHeadCol = [...props.tableHeadCol];
 
+    if (copyTableHeadCol[index].sortable) {
+      copyTableHeadCol[index].sortable = !copyTableHeadCol[index].sortable;
+      props.updateStatusSort(copyTableHeadCol);
+      return copyArray.sort((a, b) => a[sort] !== b[sort]? a[sort] > b[sort] ? -1 : 1 : 0);
+    } else {
+      copyTableHeadCol[index].sortable = !copyTableHeadCol[index].sortable;
+      props.updateStatusSort(copyTableHeadCol);
+      return copyArray.sort((a, b) => a[sort] !== b[sort]? a[sort] < b[sort] ? -1 : 1 : 0);
+    }
+  };
+
+  const sortHandle = (sort, index) => {
+    switch (sort) {
+      case 'createdDate':
+        props.sortTask(sortableTasks(sort, index));
+        break;
+      case 'changesDate':
+        props.sortTask(sortableTasks(sort, index));
+        break;
+      case 'status':
+        props.sortTask(sortableTasks(sort, index));
+        break;
+      case 'priority':
+        props.sortTask(sortableTasks(sort, index));
+        break;
+      default:
+        return null
+    }
   };
 
   const deleteHandle = (task) => {
@@ -58,8 +89,8 @@ const TaskList = props => {
         <tr key={index}>
           <td>{index + 1}</td>
           <td>{task.text}</td>
-          <td>{task.createdDate}</td>
-          <td>{task.changesDate}</td>
+          <td>{ moment(task.createdDate).format('DD.MM.YYYY, kk:mm:ss') }</td>
+          <td>{ moment(task.changesDate).format('DD.MM.YYYY, kk:mm:ss') }</td>
           <td>
             <span className={'status status-' + task.status}>
               {selectStatus(task.status)}
@@ -73,7 +104,7 @@ const TaskList = props => {
           <td>
             <div className="uk-inline">
               <div className={'wrapper-dropdown'}>
-                <Link to={`/task:${task.guid}`}>
+                <Link to={"/task:" + task.id}>
                   <span className={'settings-dropdown'}
                         uk-icon="icon: forward">
                   </span>
@@ -100,7 +131,7 @@ const TaskList = props => {
       {
         props.enableLoader
           ? <Loader/>
-          : <Table onClick={sortHandle}>
+          : <Table onClick={ (sort, index) => sortHandle(sort, index)}>
               {renderTasks()}
             </Table>
       }
@@ -111,6 +142,7 @@ const TaskList = props => {
 const mapStateToProps = state => {
   return {
     tasksArray: state.taskListReducer.tasksArray,
+    tableHeadCol: state.taskListReducer.tableHeadCol,
     enableLoader: state.taskListReducer.enableLoader,
     uid: state.authReducer.uid
   }
@@ -120,6 +152,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getTasks: (uid)=> dispatch(getTasksMethod(uid)),
     deleteTask: (tasks, uid)=> dispatch(deleteTaskMethod(tasks, uid)),
+    sortTask: (sort)=> dispatch(sortTask(sort)),
+    updateStatusSort: (arrayCol) => dispatch(updateStatusSort(arrayCol))
   }
 };
 

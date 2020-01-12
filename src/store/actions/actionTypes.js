@@ -7,6 +7,10 @@ export const CREATE_TASK_END = 'CREATE_TASK_END';
 export const EDIT_TASK = 'EDIT_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const FORM_VALID = 'FORM_VALID';
+export const GET_TASK = 'GET_TASK';
+export const LOADER_CHANGE = 'LOADER_CHANGE';
+export const SORT_TASKS = 'SORT_TASKS';
+export const UPDATE_STATUS_SORT = 'UPDATE_STATUS_SORT';
 
 export const AUTH_VALID = 'AUTH_VALID';
 export const AUTH_LOADER = 'AUTH_LOADER';

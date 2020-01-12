@@ -1,48 +1,44 @@
 import React from 'react'
+import {connect} from "react-redux";
 
 const Table = props => {
+
+
+  const renderByType = (item, index) => {
+    if (item.enableSort) {
+      return (
+        <div className={'sort-th'}>
+          {item.text}
+           <span uk-icon={`icon: ${ item.sortable ? "triangle-up" : "triangle-down"}`}
+          onClick={() => props.onClick(item.type, index)}>
+           </span>
+        </div>
+      )
+    } else {
+      return (
+        <span>{item.text}</span>
+      )
+    }
+  };
+
+  const renderTh = () => {
+    return props.tableHeadCol.map((item, index) => {
+      return (
+        <th key={item.text + index}
+            className={item.enableSort ? '' : 'st-th'}>
+          {
+            renderByType(item, index)
+          }
+        </th>
+      )
+    });
+  };
+
   return (
     <table className="uk-table uk-table-middle uk-table-divider task-table">
       <thead>
       <tr>
-        <th className={'st-th'}>
-          <span>№</span>
-        </th>
-        <th className={'st-th'}>
-          <span>Описание задачи</span>
-        </th>
-        <th>
-          <div className={'sort-th'}>
-            Дата создания
-            <span uk-icon="icon: triangle-down"
-                  onClick={props.onClick}>
-            </span>
-          </div>
-        </th>
-        <th>
-          <div className={'sort-th'}>
-            Дата обновления
-            <span uk-icon="icon: triangle-down"
-                  onClick={props.onClick}>
-            </span>
-          </div>
-        </th>
-        <th>
-          <div className={'sort-th'}>
-            Статус задачи
-            <span uk-icon="icon: triangle-down"
-                  onClick={props.onClick}>
-            </span>
-          </div>
-        </th>
-        <th>
-          <div className={'sort-th'}>
-            Приоритет
-            <span uk-icon="icon: triangle-down"
-                  onClick={props.onClick}>
-            </span>
-          </div>
-        </th>
+        {renderTh()}
       </tr>
       </thead>
       <tbody>
@@ -52,4 +48,10 @@ const Table = props => {
   )
 };
 
-export default Table
+const getMapStateToProps = state => {
+  return {
+    tableHeadCol: state.taskListReducer.tableHeadCol
+  }
+};
+
+export default connect(getMapStateToProps)(Table)

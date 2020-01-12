@@ -1,5 +1,8 @@
-import {createTaskServer, getTasksServer, deleteTaskServer} from '../../configAPI';
-import {TASK_LIST_START, TASK_LIST_END, TASK_LIST_ERROR, FORM_VALID, CREATE_TASK_END, DELETE_TASK} from './actionTypes'
+import {createTaskServer, getTasksServer, deleteTaskServer, getTask} from '../../configAPI';
+import {TASK_LIST_START, TASK_LIST_END, TASK_LIST_ERROR, FORM_VALID,
+  CREATE_TASK_END, DELETE_TASK, GET_TASK, LOADER_CHANGE, SORT_TASKS,
+  UPDATE_STATUS_SORT
+} from './actionTypes'
 
 export function getTasksMethod(uid) {
  return async dispatch => {
@@ -15,6 +18,18 @@ export function getTasksMethod(uid) {
      dispatch(getTaskListError(e));
    });
  }
+}
+
+export function getTaskServer(uid, id) {
+  return async dispatch => {
+    dispatch(loaderChange(true));
+    getTask(uid, id).then(data => {
+      dispatch(setTask(data));
+      dispatch(loaderChange(false));
+    }).catch(e => {
+      dispatch(getTaskListError(e));
+    });
+  }
 }
 
 export function createTaskMethod(task, uid) {
@@ -77,5 +92,33 @@ export function formValid(status) {
   return {
     type: FORM_VALID,
     payload: status
+  }
+}
+
+export function setTask(task) {
+  return {
+    type: GET_TASK,
+    payload: task
+  }
+}
+
+export function loaderChange(status) {
+  return {
+    type: LOADER_CHANGE,
+    payload: status
+  }
+}
+
+export function sortTask(sort) {
+  return {
+    type: SORT_TASKS,
+    payload: sort
+  }
+}
+
+export function updateStatusSort(arrayCol) {
+  return {
+    type: UPDATE_STATUS_SORT,
+    payload: arrayCol
   }
 }

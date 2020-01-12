@@ -5,7 +5,6 @@ import Select from '../UI/Select/Select';
 import Loader from '../UI/Loader/Loader';
 import {createControls, validate, validateForm} from '../../helpers/helpers';
 import uniaueId from 'uniqid';
-import moment from 'moment';
 import {connect} from "react-redux";
 import {formValid, createTaskMethod} from '../../store/actions/taskList';
 
@@ -42,8 +41,8 @@ const CreateTask = props => {
 
     let task = {
       id: uniaueId(),
-      createdDate: moment().format('DD.MM.YYYY'),
-      changesDate: moment().format('DD.MM.YYYY'),
+      createdDate: new Date().getTime(),
+      changesDate: new Date().getTime(),
       status: 1
     };
     for (let input in formInputs) {
@@ -88,7 +87,7 @@ const CreateTask = props => {
 
   const renderInputs = () => {
     return  Object.keys(formInputs).map((controlName, index) =>{
-      const control = formInputs[controlName];
+      let control = formInputs[controlName];
       return(
         <Input
           key={controlName + index}

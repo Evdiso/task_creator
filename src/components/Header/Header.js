@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import {useHistory} from 'react-router-dom';
 import {logOut} from "../../store/actions/auth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faBars, faUser} from '@fortawesome/free-solid-svg-icons';
 
 const Header = props => {
   let history = useHistory();
@@ -23,15 +25,13 @@ const Header = props => {
     <header className={classHeader}>
       <button className={classBtn}
               onClick={props.onActiveSidebarHandler}>
-        <span uk-icon="icon: menu; ratio: 2">
-        </span>
+        <FontAwesomeIcon icon={faBars} />
       </button>
       <div className={'account'}>
         <span className={'user-name'}>
           {props.displayName}
         </span>
-        <span uk-icon="icon: user; ratio: 2">
-        </span>
+        <FontAwesomeIcon icon={faUser} />
         <a href={'/'}
            className={'logOut'}
            onClick={logout}>

@@ -1,5 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faSortAmountDown, faSortAmountUpAlt} from '@fortawesome/free-solid-svg-icons';
 
 const Table = props => {
 
@@ -9,9 +11,15 @@ const Table = props => {
       return (
         <div className={'sort-th'}>
           {item.text}
-           <span uk-icon={`icon: ${ item.sortable ? "triangle-up" : "triangle-down"}`}
-          onClick={() => props.onClick(item.type, index)}>
-           </span>
+          <span onClick={() => props.onClick(item.type, index)}>
+            {
+              item.sortable
+                ? <FontAwesomeIcon
+                  icon={faSortAmountDown} />
+                : <FontAwesomeIcon
+                  icon={faSortAmountUpAlt} />
+            }
+          </span>
         </div>
       )
     } else {

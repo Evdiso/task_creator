@@ -5,6 +5,8 @@ import Loader from "../UI/Loader/Loader";
 import moment from 'moment';
 import {connect} from 'react-redux';
 import {getTasksMethod, deleteTaskMethod, sortTask, updateStatusSort} from '../../store/actions/taskList';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faTrashAlt, faEdit, faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 
 const TaskList = props => {
 
@@ -105,18 +107,18 @@ const TaskList = props => {
             <div className="uk-inline">
               <div className={'wrapper-dropdown'}>
                 <Link to={"/task:" + task.id}>
-                  <span className={'settings-dropdown'}
-                        uk-icon="icon: forward">
+                  <span className={'settings-dropdown'}>
+                    <FontAwesomeIcon icon={faFolderOpen} />
                   </span>
                 </Link>
                 <span className={'settings-dropdown'}
-                      onClick={event => editHandle(task)}
-                      uk-icon="icon: pencil">
-                  </span>
+                      onClick={event => editHandle(task)}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </span>
                 <span className={'settings-dropdown'}
-                      onClick={event => deleteHandle(task)}
-                      uk-icon="icon: trash">
-                  </span>
+                      onClick={event => deleteHandle(task)}>
+                   <FontAwesomeIcon icon={faTrashAlt} />
+                </span>
               </div>
             </div>
           </td>

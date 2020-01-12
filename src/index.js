@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import 'uikit/dist/css/uikit.min.css';
 import './index.scss';
-import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
 import {BrowserRouter} from "react-router-dom";
 import {createStore, compose, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
@@ -14,9 +11,6 @@ import {firebaseConfig} from './firebase'
 import firebase from 'firebase'
 
 firebase.initializeApp(firebaseConfig);
-
-// loads the Icon plugin
-UIkit.use(Icons);
 
 const composeEnhancers =
   typeof window === 'object' &&

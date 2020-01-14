@@ -1,13 +1,17 @@
 import React, {useEffect} from 'react'
 import {connect} from "react-redux";
-import {getTaskServer} from "../../store/actions/taskList";
+import {getTaskServer, loaderChange, setTask} from "../../store/actions/taskList";
 import Loader from "../UI/Loader/Loader";
+import moment from 'moment';
 
 const Task = props => {
 
   useEffect(()=> {
     const id = props.match.params.id.replace(':',"");
-    props.getTask(props.uid, id);
+    props.getTask(props.uid, id).then((data) => {
+      props.setTask(data);
+      props.loaderChange(false);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
@@ -47,11 +51,11 @@ const Task = props => {
         </li>
         <li className={"task"}>
           <span>Дата создания:</span>
-          {task.createdDate}
+          {moment(task.createdDate).format('DD.MM.YYYY, kk:mm:ss')}
         </li>
         <li className={"task"}>
           <span>Дата обновления:</span>
-          {task.changesDate}
+          {moment(task.changesDate).format('DD.MM.YYYY, kk:mm:ss')}
         </li>
         <li className={"task"}>
           <span>Статус задачи:</span>
@@ -87,7 +91,9 @@ const getMapStateToProps = state => {
 
 const getDispatchToProps = dispatch => {
   return {
-    getTask: (uid, id) => dispatch(getTaskServer(uid, id))
+    getTask: (uid, id) => dispatch(getTaskServer(uid, id)),
+    setTask: (task) => dispatch(setTask(task)),
+    loaderChange: (status) => dispatch(loaderChange(status))
   }
 };
 

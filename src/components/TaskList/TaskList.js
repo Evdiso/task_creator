@@ -55,10 +55,6 @@ const TaskList = props => {
     props.deleteTask(taskArrayCopy, props.uid);
   };
 
-  const editHandle = (task) => {
-    console.log('edit');
-  };
-
   const selectPriority = priority => {
     switch (priority) {
       case 1:
@@ -111,10 +107,11 @@ const TaskList = props => {
                     <FontAwesomeIcon icon={faFolderOpen} />
                   </span>
                 </Link>
-                <span className={'settings-dropdown'}
-                      onClick={event => editHandle(task)}>
-                  <FontAwesomeIcon icon={faEdit} />
-                </span>
+                <Link to={"/task/edit/" + task.id}>
+                  <span className={'settings-dropdown'}>
+                    <FontAwesomeIcon icon={faEdit} />
+                  </span>
+                </Link>
                 <span className={'settings-dropdown'}
                       onClick={event => deleteHandle(task)}>
                    <FontAwesomeIcon icon={faTrashAlt} />

@@ -1,4 +1,4 @@
-import {createTaskServer, getTasksServer, deleteTaskServer, getTask} from '../../configAPI';
+import {createTaskServer, getTasksServer, deleteTaskServer, getTask, updateTaskServer} from '../../configAPI';
 import {TASK_LIST_START, TASK_LIST_END, TASK_LIST_ERROR, FORM_VALID,
   CREATE_TASK_END, DELETE_TASK, GET_TASK, LOADER_CHANGE, SORT_TASKS,
   UPDATE_STATUS_SORT
@@ -20,15 +20,10 @@ export function getTasksMethod(uid) {
  }
 }
 
-export function getTaskServer(uid, id) {
+export function getTaskServer (uid, id) {
   return async dispatch => {
     dispatch(loaderChange(true));
-    getTask(uid, id).then(data => {
-      dispatch(setTask(data));
-      dispatch(loaderChange(false));
-    }).catch(e => {
-      dispatch(getTaskListError(e));
-    });
+    return await getTask(uid, id);
   }
 }
 
@@ -37,6 +32,17 @@ export function createTaskMethod(task, uid) {
     dispatch(getTaskListStart());
     createTaskServer(task, uid).then(data => {
       dispatch(createTaskEnd());
+    }).catch((e)=> {
+      dispatch(getTaskListError(e));
+    });
+  }
+}
+
+export function updateTaskMethod(task, uid) {
+  return async dispatch => {
+    dispatch(loaderChange(true));
+    updateTaskServer(task, uid).then(data => {
+      dispatch(loaderChange(false));
     }).catch((e)=> {
       dispatch(getTaskListError(e));
     });

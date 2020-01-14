@@ -25,6 +25,7 @@
       display: flex;
       align-items: center;
       color: rgba(255, 255, 255, 0.7);
+      justify-content: center;
       span {
         padding: 5px;
         margin-left: 10px;
@@ -81,6 +82,17 @@
     }
     &-3 {
       background-color: #079300;
+    }
+  }
+
+  table {
+    width: 100%;
+    tr {
+      border-bottom: 1px solid #fff !important;
+    }
+    td, th {
+      text-align: center;
+      padding: 15px;
     }
   }
 }

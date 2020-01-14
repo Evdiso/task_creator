@@ -7,6 +7,15 @@ export async function createTaskServer(data, uid) {
   await firebase.database().ref(`users/${uid}/` + data.id).set(data);
 }
 
+
+/*
+* method update task in to fire-base
+* */
+export async function updateTaskServer(data, uid) {
+  await firebase.database().ref(`users/${uid}/${data.id}`).set(data);
+}
+
+
 /*
 * method get a tasks list from fire-base
 * */

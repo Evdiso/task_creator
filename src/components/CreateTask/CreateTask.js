@@ -35,7 +35,7 @@ const CreateTask = props => {
     event.preventDefault();
   };
 
-  const addTask = async () => {
+  const addTask = () => {
     const formInputsCopy = {...formInputs};
     const formSelectCopy = {...formSelects};
 

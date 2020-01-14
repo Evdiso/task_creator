@@ -8,6 +8,7 @@ import Scrum from "./components/Scrum/Scrum";
 import Auth from "./components/Auth/Auth";
 import {connect} from "react-redux";
 import {autoLogin} from "./store/actions/auth";
+import EditTask from "./components/EditTask/EditTask";
 
 const App = (props) => {
 
@@ -22,6 +23,7 @@ const App = (props) => {
         <Route path="/new-task" component={CreateTask} />
         <Route path="/task-list" component={TaskList} />
         <Route path="/task:id" component={Task} />
+        <Route path="/task/edit/:id" component={EditTask} />
         <Route path="/scrum" component={Scrum} />
         <Redirect to={'/task-list'}/>
       </Switch>

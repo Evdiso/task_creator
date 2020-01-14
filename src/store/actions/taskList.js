@@ -1,4 +1,4 @@
-import {createTaskServer, getTasksServer, deleteTaskServer, getTask, updateTaskServer} from '../../configAPI';
+import {createTaskServer, getTasksServer, deleteTaskServer, getTask, updateTaskServer, getTasks} from '../../configAPI';
 import {TASK_LIST_START, TASK_LIST_END, TASK_LIST_ERROR, FORM_VALID,
   CREATE_TASK_END, DELETE_TASK, GET_TASK, LOADER_CHANGE, SORT_TASKS,
   UPDATE_STATUS_SORT
@@ -24,6 +24,13 @@ export function getTaskServer (uid, id) {
   return async dispatch => {
     dispatch(loaderChange(true));
     return await getTask(uid, id);
+  }
+}
+
+export function requestTasks (uid) {
+  return async dispatch => {
+    dispatch(loaderChange(true));
+    return await getTasks(uid);
   }
 }
 

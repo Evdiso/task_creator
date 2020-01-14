@@ -27,6 +27,17 @@ export async function getTasksServer(uid) {
   return tasks;
 }
 
+
+/*
+* method get a tasks list from fire-base
+* */
+export async function getTasks(uid) {
+  let response = await firebase.database().ref(`users/${uid}/`).once('value');
+  return await response.val();
+}
+
+
+
 /*
 * method get a tasks list from fire-base
 * */

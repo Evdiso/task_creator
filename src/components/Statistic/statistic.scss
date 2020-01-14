@@ -1,0 +1,15 @@
+.wrapper-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding: 20px;
+  .stat {
+    min-width: 350px;
+    flex: 1;
+    position: relative;
+    margin-bottom: 30px;
+  }
+}

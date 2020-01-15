@@ -1,88 +1,64 @@
 import React, {useEffect} from 'react'
 import {connect} from "react-redux";
-import Chart from 'chart.js';
-import {loaderChange, requestTasks} from "../../store/actions/taskList";
+import {getTasksMethod, loaderChange, requestTasks} from "../../store/actions/taskList";
 import Loader from '../../components/UI/Loader/Loader'
+import Chart from "./ChartComponent/Chart";
 
 const Statistic = props => {
 
 	useEffect(()=> {
-
-		let ctx = document.getElementById('myStatistic-status');
-		let ctx2 = document.getElementById('myStatistic-priority');
-		let statusArray = [];
-		let priorityArray = [];
-
-		props.getTasksStat(props.uid).then(data => {
-
-			if (data) {
-
-				Object.keys(data).forEach(item =>{
-					statusArray.push(data[item].status);
-					priorityArray.push(data[item].priority);
-				});
+		props.getTasks(props.uid);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 
-				const status = new Chart(ctx, {
-					type: 'doughnut',
-					data: {
-						labels: ['Новых', 'В процессе', 'Выполненных'],
-						datasets: [{
-							data: [4,4,4,4,4],
-							backgroundColor: [
-								'rgba(255, 99, 132)',
-								'rgba(54, 162, 235)',
-								'rgba(255, 206, 86)'
-							],
-							borderColor: [
-								'rgba(255, 99, 132, 1)',
-								'rgba(54, 162, 235, 1)',
-								'rgba(255, 206, 86, 1)'
-							],
-							borderWidth: 3
-						}]
-					}
-				});
-
-				const priority = new Chart(ctx2, {
-					type: 'doughnut',
-					data: {
-						labels: ['Высокий', 'Средний', 'Низкий'],
-						datasets: [{
-							data: [1,1,1,1,1],
-							backgroundColor: [
-								'rgba(255, 99, 132)',
-								'rgba(54, 162, 235)',
-								'rgba(255, 206, 86)'
-							],
-							borderColor: [
-								'rgba(255, 99, 132, 1)',
-								'rgba(54, 162, 235, 1)',
-								'rgba(255, 206, 86, 1)'
-							],
-							borderWidth: 3
-						}]
-					},
-					options: {
-
-					}
-				});
-
-				props.loaderChange(false);
+	const generateArray = (array, type) => {
+		let tmpArray = array.map(item => item[type]);
+		let count1 = 0, count2 = 0, count3 = 0;
+		tmpArray.forEach(item => {
+			switch (item) {
+				case 1:
+					count1++;
+					break;
+				case 2:
+					count2++;
+					break;
+				case 3:
+					count3++;
+					break;
+				default:
 			}
 		});
-	}, []);
+		return [count1, count2, count3]
+	};
+
 
 	const renderStat = () => {
 
+		const labelsStat = ['Новых', 'В процессе', 'Выполненных'];
+		const labelsPriority = ['Высокий', 'Средний', 'Низкий'];
+		const backgroundColor = ['rgba(255, 99, 132, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)'];
+		const borderColor = ["rgba(255, 255, 255, 1)",'rgba(255, 255, 255, 1)','rgba(255, 255, 255, 1)'];
+		let statusData = [];
+		let priorityData = [];
+
+		if (props.tasksArray && props.tasksArray.length) {
+			const tasksArrayCopy = [...props.tasksArray];
+
+			statusData = generateArray(tasksArrayCopy, 'status');
+			priorityData = generateArray(tasksArrayCopy, 'priority');
+		}
+
 		return (
 			<div className='wrapper-stats'>
-				<div className="stat">
-					<canvas id="myStatistic-status"></canvas>
-				</div>
-				<div className="stat">
-					<canvas id="myStatistic-priority"></canvas>
-				</div>
+				{props.tasksArray && props.tasksArray.length ? <Chart labels={labelsStat}
+																															backgroundColor={backgroundColor}
+																															borderColor={borderColor}
+																															datasetsData={statusData}/> : null}
+				{props.tasksArray && props.tasksArray.length ? <Chart labels={labelsPriority}
+																															backgroundColor={backgroundColor}
+																															borderColor={borderColor}
+																															datasetsData={priorityData}/> : null}
 			</div>
 		)
 	};
@@ -105,6 +81,7 @@ const Statistic = props => {
 const getMapStateToProps = state => {
 	return {
 		uid: state.authReducer.uid,
+		tasksArray: state.taskListReducer.tasksArray,
 		enableLoader: state.taskListReducer.enableLoader
 	}
 };
@@ -112,6 +89,7 @@ const getMapStateToProps = state => {
 const getDispatchToProps = dispatch => {
 	return {
 		getTasksStat: (uid)=> dispatch(requestTasks(uid)),
+		getTasks: (uid)=> dispatch(getTasksMethod(uid)),
 		loaderChange: (status) => dispatch(loaderChange(status))
 	}
 };

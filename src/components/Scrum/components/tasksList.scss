@@ -1,0 +1,28 @@
+.wrapper-tasks-list {
+  background: #fff;
+  padding: 20px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .tasks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .task-list-item {
+      width: 100%;
+      text-align: center;
+      border: 1px solid;
+      padding: 8px;
+      border-radius: 5px;
+      margin-bottom: 8px;
+      background-color: #fff;
+    }
+  }
+}

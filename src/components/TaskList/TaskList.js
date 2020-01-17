@@ -81,6 +81,7 @@ const TaskList = props => {
     }
   };
 
+
   const renderTasks = () => {
     return props.tasksArray.map((task, index) => {
       return (

@@ -12,9 +12,9 @@ class Column extends Component{
 				</h3>
 
 				<Droppable droppableId={this.props.column.id}>
-					{provided=>(
+					{(provided, snapshot)=>(
 						<div
-							className="tasks-list"
+							className={snapshot.isDraggingOver ? 'tasks-list dragging' : 'tasks-list'}
 							ref={provided.innerRef}
 							{...provided.droppableProps}>
 							{this.props.tasks.map((task, index) => <TaskItem task={task} index={index} key={task.id} />)}

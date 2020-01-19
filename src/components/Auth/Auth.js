@@ -26,6 +26,8 @@ const Auth = props => {
     })
   });
 
+  const [type, changeType] = useState('login');
+
   const submitHandler = event => event.preventDefault();
 
   const loginHandler = () => {
@@ -42,6 +44,15 @@ const Auth = props => {
       formControls.password.value,
       false
     );
+  };
+
+  const onHandleClick = (event) => {
+    const typeTarget = event.target.getAttribute('name');
+    if (type === typeTarget) {
+      return;
+    } else {
+      changeType(typeTarget);
+    }
   };
 
   const onchangeHandler = (event, controlName) => {
@@ -81,18 +92,34 @@ const Auth = props => {
       <form onSubmit={submitHandler}>
         <div className="wrapper-form">
           <h2>Авторизация</h2>
+          <p className='wrapper-type-auth'>
+            <span className={type === 'login' ? 'type-auth active' : 'type-auth'}
+                  name="login"
+                  onClick={onHandleClick}>
+              Войти
+            </span>
+            <span className={type === 'register' ? 'type-auth active' : 'type-auth'}
+                  name="register"
+                  onClick={onHandleClick}>
+              Зарегистрироваться
+            </span>
+          </p>
+
           {renderInputs()}
           <div className="form-controls">
-            <Button
-              disabled={!props.formValid || props.enableLoader}
-              onClick={loginHandler}
-              text="Войти"
-            />
-            <Button
-              disabled={!props.formValid || props.enableLoader}
-              onClick={registerHandler}
-              text="Зарегистрироваться"
-            />
+            {
+              type === 'login'
+                ? <Button
+                    disabled={!props.formValid || props.enableLoader}
+                    onClick={loginHandler}
+                    text="Войти"
+                  />
+                : <Button
+                    disabled={!props.formValid || props.enableLoader}
+                    onClick={registerHandler}
+                    text="Зарегистрироваться"
+                  />
+            }
           </div>
           {props.enableLoader && <Loader/>}
         </div>

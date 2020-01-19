@@ -1,28 +1,56 @@
-.wrapper-tasks-list {
-  background: #fff;
-  padding: 20px;
-  max-width: 300px;
+.wrapper-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  .tasks-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
+  padding: 20px;
+  height: calc(100vh - 127px);
+  .wrapper-tasks-list {
+    background: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    .task-list-item {
+    justify-content: center;
+    border: 1px solid;
+    flex: 1;
+    h3 {
       width: 100%;
       text-align: center;
+    }
+    .tasks-list {
+      list-style: none;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      flex: 1;
       border: 1px solid;
-      padding: 8px;
-      border-radius: 5px;
-      margin-bottom: 8px;
-      background-color: #fff;
+      width: calc(100% - 40px);
+      padding: 20px;
+      &.dragging {
+        background-color: #79a09f;
+      }
+      .task-list-item {
+        text-align: center;
+        border: 1px solid;
+        padding: 8px;
+        border-radius: 5px;
+        margin-bottom: 8px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: calc(100% - 20px);
+        &.dragging {
+          background-color: rgba(156, 17, 255, 1);
+        }
+        .iconDrag {
+          width: 20px;
+          height: 20px;
+          border-radius: 4px;
+          background-color: grey;
+        }
+      }
     }
   }
 }
+
+

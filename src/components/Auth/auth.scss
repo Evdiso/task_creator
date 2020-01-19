@@ -6,9 +6,44 @@
   align-items: center;
   position: relative;
   h2 {
-    color: #fff;
     width: 100%;
     text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 49px;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+  .wrapper-type-auth {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    .type-auth {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 25px;
+      text-transform: capitalize;
+      color: rgba(255, 255, 255, 0.5);
+      transition: all 0.3s ease-in-out;
+      margin-right: 50px;
+      &:hover {
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
+        cursor: pointer;
+      }
+      &:last-child {
+        margin-right: 0px;
+      }
+      &.active {
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
+      }
+    }
   }
   .form-controls {
     display: flex;
@@ -21,7 +56,7 @@
 
 .auth-bg {
   min-height: 100vh;
-  background-image: linear-gradient(to left bottom, #067cd4, #0088d6, #0093d6, #009dd4, #00a6d1, #00aad1, #00afd1, #00b3d0, #00b4d4, #00b5d7, #00b5db, #00b6de);
+  background: linear-gradient(120.56deg, rgba(75, 82, 104, 0.4) -8.44%, rgba(255, 255, 255, 0) 105.14%), #161C2C;
   display: flex;
   flex-direction: column;
   justify-content: center;

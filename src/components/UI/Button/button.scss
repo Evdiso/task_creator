@@ -14,11 +14,11 @@
   line-height: 25px;
   text-transform: capitalize;
   color: #FFFFFF;
-  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
 
   &:hover {
     background: #E3436A;
     box-shadow: 4px 4px 11px rgba(65, 16, 13, 0.57), -3px -4px 8px rgba(107, 115, 139, 0.25), 10px 10px 23px rgba(83, 14, 31, 0.4), -10px -8px 26px rgba(164, 69, 92, 0.5);
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
     cursor: pointer;
   }
   &:focus {
@@ -37,5 +37,12 @@
     &:hover {
       cursor: not-allowed;
     }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .btn {
+    font-size: 16px;
+    height: 40px;
   }
 }

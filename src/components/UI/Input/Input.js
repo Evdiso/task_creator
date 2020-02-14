@@ -24,12 +24,7 @@ const Input = props => {
                placeholder={props.label}
         />
       </label>
-      {
-        isInvalid(props)
-          ? <span className="validate-text">{props.errorMessage || ""}</span>
-          : null
-      }
-
+      <span className="validate-text">{props.errorMessage || ""}</span>
     </div>
   )
 };

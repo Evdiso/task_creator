@@ -43,16 +43,18 @@ const Table = props => {
   };
 
   return (
-    <table className="uk-table uk-table-middle uk-table-divider task-table">
-      <thead>
-      <tr>
-        {renderTh()}
-      </tr>
-      </thead>
-      <tbody>
+    <div className="wrapper-table">
+      <table className="task-table">
+        <thead>
+        <tr>
+          {renderTh()}
+        </tr>
+        </thead>
+        <tbody>
         {props.children}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   )
 };
 
